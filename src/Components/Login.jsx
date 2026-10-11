@@ -41,9 +41,10 @@ function Login() {
                 );
             }
 
-            // Adapt these field names if your backend returns
-            // a different login response structure.
+            // Read the token returned by the backend.
             const token = data.token || data.accessToken;
+
+            // The backend may return the user directly or inside data.user.
             const user = data.user || data;
 
             if (!token) {
@@ -52,21 +53,55 @@ function Login() {
                 );
             }
 
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
+            // Normalize the role before checking it.
+            const role = String(user.role || "")
+                .trim()
+                .toUpperCase();
 
-            const role = String(user.role || "").toUpperCase();
+            // Reject missing or unrecognized roles.
+            if (
+                role !== "ADMIN" &&
+                role !== "ORGANIZER" &&
+                role !== "STUDENT"
+            ) {
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
 
-            if (role === "ADMIN") {
-                navigate("/admin/dashboard", { replace: true });
-            } else if (role === "ORGANIZER") {
-                navigate("/organizer/events", { replace: true });
-            } else {
-                navigate("/", { replace: true });
+                throw new Error(
+                    `Unknown user role: ${role || "missing role"}`
+                );
             }
+
+            // Save authentication details.
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify({
+                ...user,
+                role
+            }));
+
+            // Redirect according to the user's role.
+            if (role === "ADMIN") {
+                navigate("/admin/dashboard", {
+                    replace: true
+                });
+            } else if (role === "ORGANIZER") {
+                navigate("/organizer/events", {
+                    replace: true
+                });
+            } else if (role === "STUDENT") {
+                navigate("/home", {
+                    replace: true
+                });
+            }
+
         } catch (err) {
             console.error("Login error:", err);
-            setError(err.message || "Unable to log in. Please try again.");
+
+            setError(
+                err.message ||
+                "Unable to log in. Please try again."
+            );
+
         } finally {
             setLoading(false);
         }
@@ -74,14 +109,18 @@ function Login() {
 
     return (
         <main className="login-page">
+
             <section className="login-brand-panel">
+
                 <div className="login-brand-content">
+
                     <div className="login-logo">
                         <span className="login-logo-icon">E</span>
                         <span>EventHub</span>
                     </div>
 
                     <div className="login-brand-message">
+
                         <span className="login-eyebrow">
                             YOUR CAMPUS. YOUR COMMUNITY.
                         </span>
@@ -101,37 +140,51 @@ function Login() {
                         </p>
 
                         <div className="login-feature-list">
+
                             <div>
-                                <span className="login-feature-check">✓</span>
+                                <span className="login-feature-check">
+                                    ✓
+                                </span>
                                 Discover campus events
                             </div>
 
                             <div>
-                                <span className="login-feature-check">✓</span>
+                                <span className="login-feature-check">
+                                    ✓
+                                </span>
                                 Register in a few clicks
                             </div>
 
                             <div>
-                                <span className="login-feature-check">✓</span>
+                                <span className="login-feature-check">
+                                    ✓
+                                </span>
                                 Manage events in one place
                             </div>
+
                         </div>
+
                     </div>
 
                     <div className="login-brand-footer">
                         COLLEGE EVENTS, SIMPLIFIED.
                     </div>
+
                 </div>
+
             </section>
 
             <section className="login-form-panel">
+
                 <div className="login-form-container">
+
                     <div className="login-mobile-logo">
                         <span className="login-logo-icon">E</span>
                         <span>EventHub</span>
                     </div>
 
                     <div className="login-welcome">
+
                         <span className="login-form-eyebrow">
                             WELCOME BACK
                         </span>
@@ -141,6 +194,7 @@ function Login() {
                         <p>
                             Enter your details to access your account.
                         </p>
+
                     </div>
 
                     {error && (
@@ -153,7 +207,9 @@ function Login() {
                         className="login-form"
                         onSubmit={handleSubmit}
                     >
+
                         <div className="login-field">
+
                             <label htmlFor="login-email">
                                 Email address
                             </label>
@@ -169,9 +225,11 @@ function Login() {
                                 autoComplete="email"
                                 required
                             />
+
                         </div>
 
                         <div className="login-field">
+
                             <div className="login-password-label">
                                 <label htmlFor="login-password">
                                     Password
@@ -179,6 +237,7 @@ function Login() {
                             </div>
 
                             <div className="login-password-wrapper">
+
                                 <input
                                     id="login-password"
                                     type={
@@ -199,7 +258,9 @@ function Login() {
                                     type="button"
                                     className="login-show-password"
                                     onClick={() =>
-                                        setShowPassword(previous => !previous)
+                                        setShowPassword(
+                                            previous => !previous
+                                        )
                                     }
                                     aria-label={
                                         showPassword
@@ -209,7 +270,9 @@ function Login() {
                                 >
                                     {showPassword ? "Hide" : "Show"}
                                 </button>
+
                             </div>
+
                         </div>
 
                         <button
@@ -220,8 +283,10 @@ function Login() {
                             {loading
                                 ? "Signing in..."
                                 : "Sign in to your account"}
+
                             {!loading && <span>→</span>}
                         </button>
+
                     </form>
 
                     <div className="login-divider">
@@ -238,8 +303,11 @@ function Login() {
                     <p className="login-security-note">
                         Your campus community, all in one place.
                     </p>
+
                 </div>
+
             </section>
+
         </main>
     );
 }
