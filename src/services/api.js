@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080";
+const API_URL = "https://eventhub-backend-g8zk.onrender.com";
 
 export async function apiFetch(endpoint, options = {}) {
     const token = localStorage.getItem("token");
