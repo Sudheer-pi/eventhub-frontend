@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+    Routes,
+    Route,
+    Navigate,
+    useNavigate
+} from "react-router-dom";
 
 import EventCard from "./Components/EventCard";
 import MyEvents from "./Components/MyEvents";
@@ -94,10 +99,10 @@ function App() {
             setError("");
 
             try {
-                  const response = await fetch(
-    "https://eventhub-backend-g8zk.onrender.com/api/events/approved",
-    { cache: "no-store" }
-);
+                const response = await fetch(
+                    "https://eventhub-backend-g8zk.onrender.com/api/events/approved",
+                    { cache: "no-store" }
+                );
 
                 if (!response.ok) {
                     throw new Error(
@@ -112,9 +117,14 @@ function App() {
                 }
             } catch (err) {
                 if (!cancelled) {
-                    console.error("Error loading approved events:", err);
+                    console.error(
+                        "Error loading approved events:",
+                        err
+                    );
+
                     setError(
-                        err.message || "Could not load approved events."
+                        err.message ||
+                        "Could not load approved events."
                     );
                 }
             } finally {
@@ -133,11 +143,19 @@ function App() {
 
     return (
         <Routes>
+            {/* Redirect the homepage to Login */}
+            <Route
+                path="/"
+                element={<Navigate to="/login" replace />}
+            />
+
+            {/* Login and Signup */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
+            {/* EventHub Homepage */}
             <Route
-                path="/"
+                path="/home"
                 element={
                     <HomePage
                         events={events}
@@ -148,6 +166,7 @@ function App() {
                 }
             />
 
+            {/* Other existing pages */}
             <Route
                 path="/events/:id"
                 element={<EventDetailsPage />}
