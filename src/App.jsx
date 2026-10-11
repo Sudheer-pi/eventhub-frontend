@@ -94,10 +94,10 @@ function App() {
             setError("");
 
             try {
-                const response = await fetch(
-                    "http://localhost:8080/api/events/approved",
-                    { cache: "no-store" }
-                );
+                  const response = await fetch(
+    "https://eventhub-backend-g8zk.onrender.com/api/events/approved",
+    { cache: "no-store" }
+);
 
                 if (!response.ok) {
                     throw new Error(

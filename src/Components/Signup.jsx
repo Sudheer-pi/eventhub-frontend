@@ -32,15 +32,15 @@ function Signup() {
             console.log("Signup: sending request to backend");
 
             const response = await fetch(
-                "http://localhost:8080/api/users",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(form)
-                }
-            );
+    "https://eventhub-backend-g8zk.onrender.com/api/users",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+    }
+);
 
             const responseText = await response.text();
 
