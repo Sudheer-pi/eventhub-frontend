@@ -1,16 +1,115 @@
-# React + Vite
+# 🎓 EventHub – College Event Management and Registration System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EventHub is a web-based application that simplifies college event discovery and registration. It provides a user-friendly interface for students, organizers, and administrators to manage college events efficiently.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 👨‍🎓 Student
+- View available college events.
+- Register for events.
+- View registered events.
+- Cancel event registrations.
 
-## React Compiler
+### 🧑‍💼 Organizer
+- Create college events.
+- Edit and delete events.
+- View event registration information.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🛡️ Administrator
+- Manage user roles.
+- View dashboard statistics.
+- Approve or reject events.
 
-## Expanding the ESLint configuration
+## 🛠️ Technology Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React.js
+- **Build Tool:** Vite
+- **Routing:** React Router
+- **API Communication:** Fetch API
+- **Styling:** CSS
+- **Backend:** Java Spring Boot
+- **Database:** MySQL
+
+## 📁 Project Structure
+
+```text
+eventhub-frontend/
+├── public/
+├── src/
+│   ├── Components/
+│   ├── services/
+│   ├── assets/
+│   ├── App.jsx
+│   ├── App.css
+│   └── main.jsx
+├── index.html
+├── package.json
+├── package-lock.json
+└── vite.config.js
+```
+
+*The exact structure may vary depending on the current implementation.*
+
+## ⚙️ Prerequisites
+
+Install the following before running the frontend:
+
+- Node.js
+- npm
+- Git
+
+## 💻 Installation and Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Sudheer-pi/eventhub-frontend.git
+```
+
+### 2. Navigate to the project folder
+
+```bash
+cd eventhub-frontend
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+### 5. Open the application
+
+Vite normally displays a local URL in the terminal, such as:
+
+```text
+http://localhost:5173
+```
+
+Open the displayed URL in your browser.
+
+## 🔗 Related Repository
+
+**Backend:** https://github.com/Sudheer-pi/eventhub-backend
+
+## 🔐 Security
+
+- Authentication and authorization are handled through the backend.
+- Do not commit passwords, API secrets, or environment files containing credentials.
+- Configure the API endpoint appropriately when deploying the frontend.
+
+## 🎯 Project Objective
+
+The objective of EventHub is to provide a centralized platform for managing college events, simplifying student registrations, and improving coordination between students, event organizers, and administrators.
+
+## 👨‍💻 Project Information
+
+**Project Name:** EventHub – College Event Management and Registration System
+
+**Project Type:** Full-Stack Web Application
